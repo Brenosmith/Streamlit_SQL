@@ -1,3 +1,6 @@
+# Description: Dicionários com os nomes das tabelas do Twister e seus respectivos IDs
+# Author: Breno Garcia Ferraz
+
 tabelas_twister_dict = {"Twister Onboarding": "Twister.TB_TWISTER_ONBOARDING",
                         "Twister Cartões PJ": "Twister.TB_TWISTER_CARTOES_PJ"}
 

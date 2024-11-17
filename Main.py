@@ -1,3 +1,6 @@
+# Descrição: Este arquivo possui a função principal que é responsável por executar o código principal do aplicativo streamlit.
+# Author: Breno Garcia Ferraz
+
 import streamlit as st
 from Sql import SQL
 from Tabelas_Twister import tabelas_twister_dict, tabelas_log_dict, id_twisters_dict
@@ -6,6 +9,10 @@ if 'page' not in st.session_state:
     st.session_state.page = 'Consulta Regras'
 
 def consulta_regras():
+    """
+    Função para consultar as regras de férias.
+    """
+
     # Initialize session state variables
     if 'tabela_selecionada' not in st.session_state:
         st.session_state.tabela_selecionada = None
@@ -34,6 +41,10 @@ def consulta_regras():
             st.write('Por favor, selecione um Twister.')
 
 def consulta_distribuicao():
+    """
+    Função para consultar a distribuição de e-mails.
+    """
+
     # Initialize session state variables
     if 'tabela_selecionada' not in st.session_state:
         st.session_state.tabela_selecionada = None
@@ -97,6 +108,10 @@ def consulta_distribuicao():
                 st.write('Por favor, selecione um Twister.')
 
 def alteracao_ferias():
+    """
+    Função para alterar o status de férias dos analistas.
+    """
+
     # Initialize session state variables
     if 'tabela_selecionada' not in st.session_state:
         st.session_state.tabela_selecionada = None

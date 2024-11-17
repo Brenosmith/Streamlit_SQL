@@ -1,3 +1,6 @@
+# Descrição: Este arquivo contém a classe SQL que é responsável por buscar e atualizar dados em um banco de dados SQL Server.
+# Author: Breno Garcia Ferraz
+
 import pyodbc
 import pandas as pd
 
@@ -12,6 +15,17 @@ class SQL:
         )
 
     def fetch_table_data(self, table_name, kwargs=None):
+        """
+        FBuscar dados de uma tabela no banco de dados.
+
+        Args:
+            table_name (str): Nome da tabela.
+            kwargs (str, optional): Condições/filtros para a busca. Defaults to None.
+
+        Returns:
+            pd.DataFrame: DataFrame com os dados da tabela.
+        """
+
         # Establish the connection
         conn = pyodbc.connect(self.conn_str)
 
@@ -39,6 +53,17 @@ class SQL:
         return df
 
     def update_table_data(self, table_name, ferias_sim_nao, analista):
+        """
+        Atualizar dados de uma tabela no banco de dados.
+        
+        Args:
+            table_name (str): Nome da tabela.
+            ferias_sim_nao (str): Status de férias: 'SIM' ou 'NÃO'.
+            analista (str): Nome do analista.
+
+        Returns:
+            str: Mensagem de sucesso ou erro.
+        """
         try:
             # Establish the connection
             conn = pyodbc.connect(self.conn_str)
