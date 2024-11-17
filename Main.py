@@ -1,5 +1,5 @@
 import streamlit as st
-from Sql import fetch_table_data, update_table_data
+from Sql import SQL
 from Tabelas_Twister import tabelas_twister_dict, tabelas_log_dict, id_twisters_dict
 
 if 'page' not in st.session_state:
@@ -11,6 +11,8 @@ def consulta_regras():
         st.session_state.tabela_selecionada = None
     if 'df_atual' not in st.session_state:
         st.session_state.df_atual = None
+
+    sql = SQL()
 
     st.title('Consulta de Regras de Férias')
     st.write('Aqui você pode consultar as regras de férias.')
@@ -24,7 +26,7 @@ def consulta_regras():
         if st.session_state.tabela_selecionada != "":
             # Create a table that shows the data from a DataFrame
             table_name = tabelas_twister_dict.get(st.session_state.tabela_selecionada)
-            st.session_state.df_atual = fetch_table_data(table_name)
+            st.session_state.df_atual = sql.fetch_table_data(table_name)
 
             st.write('Data from the table:')
             st.dataframe(st.session_state.df_atual)  # Adjust the height as needed
@@ -47,6 +49,7 @@ def consulta_distribuicao():
         st.session_state.data_fim = None
 
     filtro_query = ""
+    sql = SQL()
 
     st.title('Consulta de Distribuição de E-mails')
     st.write('Aqui você pode consultar a distribuição de e-mails.')
@@ -86,7 +89,7 @@ def consulta_distribuicao():
         if st.button('Buscar'):
             if st.session_state.tabela_selecionada != "":
                 # Create a table that shows the data from a DataFrame
-                st.session_state.df_atual = fetch_table_data(tabelas_log_dict.get("Log Geral"), filtro_query)
+                st.session_state.df_atual = sql.fetch_table_data(tabelas_log_dict.get("Log Geral"), filtro_query)
 
                 st.write('Data from the table:')
                 st.dataframe(st.session_state.df_atual)
@@ -104,6 +107,8 @@ def alteracao_ferias():
     if 'df_atual' not in st.session_state:
         st.session_state.df_atual = None
 
+    sql = SQL()
+
     st.title('Alteração de Regras de Férias')
     st.write('Aqui você pode atualizar o status de férias dos analistas.')
     
@@ -112,7 +117,7 @@ def alteracao_ferias():
 
     if st.session_state.tabela_selecionada != "":
         table_name = tabelas_twister_dict.get(st.session_state.tabela_selecionada)
-        st.session_state.df_atual = fetch_table_data(table_name)
+        st.session_state.df_atual = sql.fetch_table_data(table_name)
     else:
         st.session_state.df_atual = None
 
@@ -133,10 +138,11 @@ def alteracao_ferias():
             if st.button('Atualizar na tabela'):
                 # Update the table with the selected data
                 table_name = tabelas_twister_dict.get(st.session_state.tabela_selecionada)
-                result = update_table_data(table_name, st.session_state.ferias_sim_nao, st.session_state.analista_selecionado)
+                result = sql.update_table_data(table_name, st.session_state.ferias_sim_nao, st.session_state.analista_selecionado)
 
                 if result == "Success":
                     st.write('Tabela atualizada com sucesso!')
+                    st.write('Consulte a tabela novamente para ver as alterações.')
                 else:
                     st.write(f'Erro: {result}')
     else:
