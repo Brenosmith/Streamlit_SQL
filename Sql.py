@@ -16,7 +16,7 @@ class SQL:
 
     def fetch_table_data(self, table_name, kwargs=None):
         """
-        FBuscar dados de uma tabela no banco de dados.
+        Buscar dados de uma tabela no banco de dados.
 
         Args:
             table_name (str): Nome da tabela.
